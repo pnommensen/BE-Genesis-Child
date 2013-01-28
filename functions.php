@@ -124,6 +124,9 @@ function be_contactmethods( $contactmethods ) {
  */
 function be_add_inpost_seo_box() {
 
+	if ( genesis_detect_seo_plugins() )
+		return;
+		
 	foreach ( (array) get_post_types( array( 'public' => true ) ) as $type ) {
 		if ( post_type_supports( $type, 'genesis-seo' ) )
 			add_meta_box( 'genesis_inpost_seo_box', __( 'Theme SEO Settings', 'genesis' ), 'genesis_inpost_seo_box', $type, 'normal', 'default' );
