@@ -24,6 +24,8 @@
 add_action('genesis_setup','child_theme_setup', 15);
 function child_theme_setup() {
 	
+	define( 'CHILD_THEME_VERSION', filemtime( get_stylesheet_directory() . '/style.css' ) );
+
 	// ** Backend **	
 	
 	// Image Sizes
