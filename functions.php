@@ -49,14 +49,7 @@ function child_theme_setup() {
 	
 	// Remove Unused User Settings
 	add_filter( 'user_contactmethods', 'be_contactmethods' );
-	remove_action( 'show_user_profile', 'genesis_user_options_fields' );
-	remove_action( 'edit_user_profile', 'genesis_user_options_fields' );
-	remove_action( 'show_user_profile', 'genesis_user_archive_fields' );
-	remove_action( 'edit_user_profile', 'genesis_user_archive_fields' );
-	remove_action( 'show_user_profile', 'genesis_user_seo_fields' );
-	remove_action( 'edit_user_profile', 'genesis_user_seo_fields' );
-	remove_action( 'show_user_profile', 'genesis_user_layout_fields' );
-	remove_action( 'edit_user_profile', 'genesis_user_layout_fields' );
+	add_action( 'admin_init', 'be_remove_user_settings' );
 
 	// Editor Styles
 	add_editor_style( 'editor-style.css' );
@@ -110,6 +103,21 @@ function be_contactmethods( $contactmethods ) {
 	unset( $contactmethods['jabber'] );
 	
 	return $contactmethods;
+}
+
+/**
+ * Remove Use Theme Settings
+ * 
+ */
+function be_remove_user_settings() {
+	remove_action( 'show_user_profile', 'genesis_user_options_fields' );
+	remove_action( 'edit_user_profile', 'genesis_user_options_fields' );
+	remove_action( 'show_user_profile', 'genesis_user_archive_fields' );
+	remove_action( 'edit_user_profile', 'genesis_user_archive_fields' );
+	remove_action( 'show_user_profile', 'genesis_user_seo_fields' );
+	remove_action( 'edit_user_profile', 'genesis_user_seo_fields' );
+	remove_action( 'show_user_profile', 'genesis_user_layout_fields' );
+	remove_action( 'edit_user_profile', 'genesis_user_layout_fields' );
 }
 
 /**
@@ -185,6 +193,7 @@ function be_remove_genesis_metaboxes( $_genesis_theme_settings_pagehook ) {
 	//remove_meta_box( 'genesis-theme-settings-feeds',      $_genesis_theme_settings_pagehook, 'main' );
 	//remove_meta_box( 'genesis-theme-settings-header',     $_genesis_theme_settings_pagehook, 'main' );
 	remove_meta_box( 'genesis-theme-settings-nav',        $_genesis_theme_settings_pagehook, 'main' );
+	// remove_meta_box( 'genesis-theme-settings-layout',    $_genesis_theme_settings_pagehook, 'main' );
 	//remove_meta_box( 'genesis-theme-settings-breadcrumb', $_genesis_theme_settings_pagehook, 'main' );
 	//remove_meta_box( 'genesis-theme-settings-comments',   $_genesis_theme_settings_pagehook, 'main' );
 	//remove_meta_box( 'genesis-theme-settings-posts',      $_genesis_theme_settings_pagehook, 'main' );
